@@ -74,15 +74,19 @@ public struct MeshGradientView: View {
             }
             .onAnimationCompleted(for: blob1.radians, handler: randomizeBlobs)
             .onAnimationCompleted(for: AnimatablePair(blob1.position.x, blob1.position.y)) {
-                withAnimation(.linear(duration: 3 * period)) {
-                    randomizePositions(size: proxy.size)
+                DispatchQueue.main.async {
+                    withAnimation(.linear(duration: 3 * period)) {
+                        randomizePositions(size: proxy.size)
+                    }
                 }
             }
             .onAppear {
                 randomizeBlobs()
                 randomizePositions(size: proxy.size)
-                withAnimation(.linear(duration: 3 * period)) {
-                    randomizePositions(size: proxy.size)
+                DispatchQueue.main.async {
+                    withAnimation(.linear(duration: 3 * period)) {
+                        randomizePositions(size: proxy.size)
+                    }
                 }
             }
         }
