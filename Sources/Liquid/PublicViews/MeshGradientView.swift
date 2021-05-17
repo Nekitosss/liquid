@@ -126,10 +126,12 @@ public struct MeshGradientView: View {
     }
     
     private func randomizeBlobs() {
-        withAnimation(Animation.linear(duration: period).repeatCount(1, autoreverses: true)) {
-            blob1.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
-            blob2.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
-            blob3.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
+        DispatchQueue.main.async {
+            withAnimation(Animation.linear(duration: period).repeatCount(1, autoreverses: true)) {
+                blob1.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
+                blob2.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
+                blob3.radians = AnimatableArray(LiquidCircleView.generateRadial(samples))
+            }
         }
     }
     
@@ -170,8 +172,10 @@ private struct BackgroundGradient: View {
             
         }
         .onAppear {
-            withAnimation(Animation.linear(duration: animationDuration).repeatForever(autoreverses: false)) {
-                self.gradientAngle = 360
+            DispatchQueue.main.async {
+                withAnimation(Animation.linear(duration: animationDuration).repeatForever(autoreverses: false)) {
+                    self.gradientAngle = 360
+                }
             }
         }
     }
